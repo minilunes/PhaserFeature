@@ -51,7 +51,7 @@ var score = 0;
 var gameOver = false;
 
 // set the timer properties
-var timeLeft = 20;
+var timeLeft;
 var elem = document.getElementById('some_div');
 var timerID = setInterval(countdown, 1000);
 
@@ -86,6 +86,9 @@ function create ()
 
     // The player and its settings
     player = this.physics.add.sprite(100, 450, 'dude');
+
+    // Set the timer
+    timeLeft = 60;
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.setBounce(0.2);
@@ -201,16 +204,17 @@ function collectStar (player, star)
 
     //  Add and update the score
     score += 10;
-    scoreText.setText('Score: ' + score);
+    scoreText.setText('score: ' + score);
 
     if (stars.countActive(true) === 0)
     {
+        // add 10 seconds for completing the level
+        timeLeft += 10;
+
         //  A new batch of stars to collect
         stars.children.iterate(function (child) {
 
-            child.enableBody(true, child.x, 0, true, true);
-            timeLeft = 20;
-
+        child.enableBody(true, child.x, 0, true, true);
         });
 
         var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
