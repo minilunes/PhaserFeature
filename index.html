@@ -7,16 +7,21 @@
     <style type="text/css">
         body {
             margin: 0;
+            position: relative;
         }
         #some_div {
-            font-size: 250%;
-            padding-left: 200px;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+            position: absolute;
+            padding-left: 17px;
+            padding-top: 50px;
+            font-size: 32px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         }
     </style>
 </head>
 <body>
+    
     <div id="some_div"></div>
+
 <script type="text/javascript">
 
 var config = {
@@ -141,12 +146,12 @@ function create ()
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
 
-// countdown functinoality 
+// countdown functinoality; without it, it will never stop counting down
 function countdown() {
     if (timeLeft == -1) {
         clearTimeout(timerID);
     } else {
-        elem.innerHTML = timeLeft + ' seconds remaining';
+        elem.innerHTML = 'time left: ' + timeLeft;
         timeLeft--;
     }
 }
@@ -226,6 +231,8 @@ function hitBomb (player, bomb)
     player.setTint(0xff0000);
 
     player.anims.play('turn');
+
+    timeLeft = 0;
 
     gameOver = true;
 }
